@@ -1,3 +1,4 @@
 require 'savon'
-require 'landb/landb_client'
-require 'landb/landb_responce'
+
+require File.expand_path(File.dirname(__FILE__) + '/landb/landb_client')
+require File.expand_path(File.dirname(__FILE__) + '/landb/landb_response')

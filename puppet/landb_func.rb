@@ -18,14 +18,14 @@ module Puppet::Parser::Functions
 
     client_method = client.method option_hash["method"].to_sym
 
-    responce = client_method.call option_hash["method_arguments"]
+    response = client_method.call option_hash["method_arguments"]
 
-    if option_hash["responce_info"].first.instance_of?(Array)
-      responce = responce.get_values_for_paths option_hash["response_info"]
+    if option_hash["response_info"].first.instance_of?(Array)
+      response = response.get_values_for_paths option_hash["response_info"]
     else
-      responce = responce.get_value_for_path option_hash["response_info"]
+      response = response.get_value_for_path option_hash["response_info"]
     end
 
-    responce
+    response
   end
 end

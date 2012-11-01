@@ -6,6 +6,16 @@ class LandbResponse
       
       if v.instance_of? Hash
         self.instance_variable_set("@#{k}", LandbResponse.new(v))  ## create and initialize an instance variable for this hash.
+      elsif v.instance_of? Array
+        v_array = v.collect do |new_v| 
+          if (new_v.instance_of? Array) || (new_v.instance_of? Hash)
+            LandbResponse.new(new_v) 
+          else
+            new_v
+          end
+        end
+
+        self.instance_variable_set("@#{k}", v_array)  ## create and initialize an instance variable based on an array.
       else
         self.instance_variable_set("@#{k}", v)  ## create and initialize an instance variable for this key/value pair.
       end
@@ -15,22 +25,22 @@ class LandbResponse
   end
   
   def get_values_for_paths paths_array
-    responces = []
+    responses = []
     
     paths_array.each do |path|
-      responces << get_value_for_path(path)
+      responses << get_value_for_path(path)
     end
     
-    responces
+    responses
   end
   
   def get_value_for_path path_array
-    responce_runner = self
+    response_runner = self
     
     path_array.each do |domain|
-      responce_runner = responce_runner.send domain.to_sym
+      response_runner = response_runner.send domain.to_sym
     end
     
-    responce_runner
+    response_runner
   end
 end

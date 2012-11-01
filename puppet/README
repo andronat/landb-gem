@@ -31,3 +31,21 @@ Output should be something like:
 	notice: Class[Main]: Would have triggered 'refresh' from 2 events
 	notice: Stage[main]: Would have triggered 'refresh' from 1 events
 	notice: Finished catalog run in 0.04 seconds
+	
+Notice:
+
+	In case you have to handle arrays, you have to know it apriory.
+	
+	e.g.
+		Lets say you request "response_info" => ["device_info", "responsible_person", "email"]. 
+		You have to assign the array of emails to a different variable and not mix it with other requests.
+		
+		$value = cern_lan_db_func({ "method" => "get_device_info",
+		                      "method_arguments" => "PCITCS57",
+		                      "response_info" => ["device_info", "responsible_person", "name"]
+		                    })
+		
+		$array = cern_lan_db_func({ "method" => "get_device_info",
+		                      "method_arguments" => "PCITCS57",
+		                      "response_info" => ["device_info", "responsible_person", "email"]
+		                    })
